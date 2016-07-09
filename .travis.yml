@@ -1,0 +1,48 @@
+notifications:
+  email: false
+
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - ~/.npm
+    - development/node_modules
+
+# Ignore version tags
+branches:
+  except:
+    - /^v[0-9]/
+
+env:
+  global:
+    # CODECLIMATE_REPO_TOKEN
+    - secure: VJRUETBuvqcoHIO2F9w0Sb3xI9id91yvu1kCn0F+JcNtoH54ZDL8XBxGNbxnpOt138EJxbI844GuDJDUzsHYyhPjkde0MR187UKBwNa2RAotrIZKbLvj6SW1q8rsbFlZJGj2PYAnNGO9PYqlQSUvkv83kyjCRIv6vx2mvwK00MECvq9h9LIc3RPhv+ZcRVDyKfLyxaGL3vGtXP+aRqzHg84KMwSLhdFJ2V9thvbkB+0RhiPExOnwzBTuy14U5bVtzA6E2ppHiCXfz8+j2pn+WiZ62HbeKvKaQiwSaylDetBFuuT76fCYQYtkjZhdSlVLVkfnBampsZDRDXNFT8CrqSaAEKmZHiGemfrcBHTAdPYxQqpU8nWb45LSrBpeGkdZE4h80Y5ARxAomssECJRyE4F31QUlf7lATUYyW8ao6WZmvd7c9wu7hha1NVAQaTbUlRM4z9jqiz3I1dJXqzrIwXatw3qLo4YfAQfUUAyFJPGjk4RdvNZScZtKo7AftRt0YHZTe24UFmzQEHUAF1l3gJCLx8/9VNvbZ8apMxHlCsGIs66uMFGI56v4TBHSHMjEsr7iJMxLpXt8JD5RTBKbuNVlINb7ixTOGxEg2OIx7SGRdx1DN5n3WHalCAvG+Z/UTTciAW6joflA37t8yMOPbmwHDv1W9SWPqXmgdfIvaI8=
+
+# Language options
+language: node_js
+node_js:
+  - 4
+  - 5
+  - 6
+before_install:
+  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+install:
+  - cd development
+  - npm install
+before_script:
+  - npm prune
+script:
+  - npm run cover
+  - npm run lint
+
+# Npm publish options
+before_deploy:
+  - npm run build
+deploy:
+  skip_cleanup: true # keep the devDependencies
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure:
+  on:
+    node: 4

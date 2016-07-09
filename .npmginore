@@ -1,0 +1,4 @@
+# keep the empty
+# publish only the file that defined in the "files" of package.json
+# (follow the .gitignore pattern rules unless .npmignore exists.)
+# https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
